@@ -1,5 +1,5 @@
 from django.db.models import F
-from django.http import HttpResponseRedirect, JsonResponse
+from django.http import HttpResponseRedirect, JsonResponse, HttpResponseBadRequest, HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import generic
@@ -120,25 +120,31 @@ def cliente(request):
         sexo = request.POST.get("sexo")
         email = request.POST.get("email")
         telefono = request.POST.get("telefono")
+
+        if not nombre or not edad or not sexo or not email or not telefono:
+            return JsonResponse({'ERROR': 'Por favor, completa todos los campos'}, status=400)
         try:
             edad = int(edad)
             if edad < 18:
-                return JsonResponse({'ERROR': 'No cumples con la edad minima'}, status=400)
+                return JsonResponse({'ERROR': 'Debes ser mayor de 18 años para registrarte'}, status=400)
         except ValueError:
-            return JsonResponse({'ERROR': 'Tu edad debe ser entero no existen tu edad dada'}, status=400)
+            return JsonResponse({'ERROR': 'Edad no válida'}, status=400)
 
         if len(telefono) != 10:
-            return JsonResponse({'ERROR': 'Tu numero debe tener 10 digitos'}, status=400)
+            return JsonResponse({'ERROR': 'El número de teléfono debe tener 10 dígitos'}, status=400)
 
         cliente = Cliente(nombre=nombre, edad=edad, sexo=sexo, email=email, telefono=telefono)
         cliente.save()
 
-        return JsonResponse({'Mensaje': 'Haz sido guardado exitosamente'})
-    else:
-        return render(request, 'Agendacliente.html')
+        return JsonResponse({'Mensaje': 'Cliente guardado exitosamente'})
 
+    return render(request, 'polls/Agendacliente.html')
 
+from .models import Cliente
 
+def lista_usuarios(request):
+    usuarios = Cliente.objects.all()
+    return render(request, 'polls/ListaUsuarios.html', {'usuarios': usuarios})
 
 
 

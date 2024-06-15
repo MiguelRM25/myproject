@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #dbddf0;
+            padding: 20px;
+        }
+        .container {
+            background-color: #bcb7eb7c;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(10, 10, 10, 0.1);
+            padding: 20px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        h2 {
+            color: rgb(95, 0, 247);
+            margin-top: 0;
+        }
+        label {
+            color: #5d41d6;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        label {
+            color: #5d41d6;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        input {
+            background-color: rgb(168, 190, 252);
+            color: #f3f3f3;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        button {
+            background-color: rgb(155, 181, 255);
+            color: #322ff3;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: rgb(47, 0, 255);
+            color:rgb(255, 255, 255)
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Inicio de Sesión</h2>
+        <form id="clienteForm" method="POST" autocomplete="off">
+        {% csrf_token %}
+        <label for="usuario">Usuario:</label><br>
+        <input type="text" id="usuario" name="usuario" required><br>
+        <br>
+        <label for="contraseña">Contraseña (mayor a 6 caracteres):</label><br>
+        <input type="password" id="contraseña" name="contraseña" pattern=".{6,}" required/><br>
+        <br>
+        <button type="submit">Acceder</button><br>
+        </div>
+    </form>
+
+    <script>
+        fetch('/polls/inicio/', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            if (data.error) {
+                alert(data.error);
+            } else {
+                alert(data.mensaje);
+            }
+        })
+        .catch(error => console.error('Error:', error));
+        
+    </script>    
+</body>
+</html>

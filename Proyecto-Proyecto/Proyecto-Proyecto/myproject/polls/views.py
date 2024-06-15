@@ -146,6 +146,27 @@ def lista_usuarios(request):
     usuarios = Cliente.objects.all()
     return render(request, 'polls/ListaUsuarios.html', {'usuarios': usuarios})
 
+from .models import Usuario
+def inicio (request):
+    if request.method == 'POST':
+        usuario = request.POST.get("usuario")
+        contraseña = request.POST.get("contraseña")
+    
+        if not usuario or not contraseña:
+            return render(request, 'polls/error.html', {'mensaje': 'Por favor, completa todos los campos'}, status=400)
+        inicio = Usuario(usuario=usuario, contraseña=contraseña)
+        inicio.save()
+
+        return render(request, 'polls/exito.html')
+
+    return render(request, 'polls/sesion.html')
+
+def verinicios(request):
+    ver = Usuario.objects.all()
+    return render (request, 'polls/verinicio.html',{'ver':ver})
+
+
+
 
 
         

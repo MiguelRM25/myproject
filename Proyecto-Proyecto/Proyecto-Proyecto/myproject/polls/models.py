@@ -29,3 +29,10 @@ class Cliente(models.Model):
 
     def __str__(self):
         return self.nombre
+    
+class Usuario(models.Model):
+    usuario = models.CharField(max_length=30)
+    contraseña = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.usuario

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sesión</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e2b9b9;
+            padding: 20px;
+        }
+        .container {
+            background-color: #e78b4d80;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(253, 186, 186, 0.1);
+            padding: 20px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: rgb(148, 0, 0);
+            margin-top: 0;
+        }
+        table {
+            color: #0c0c0c;
+            font-size: 16px;
+            margin-bottom: 20px;
+            border: solid #b93535
+        }
+        th {
+            color: #b12a2a;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+    <h1>Ver inicio de sesión</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Usuario</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ver in ver %}
+            <tr>
+                <td>{{ ver.usuario }}</td>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+</body>
+</html>
